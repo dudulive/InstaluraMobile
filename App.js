@@ -8,24 +8,29 @@
  */
 
 import React, {Component} from 'react';
-import { FlatList, Dimensions, StyleSheet} from 'react-native';
+import { FlatList, StyleSheet} from 'react-native';
 
 import Post from './src/components/Post'; 
 
-const width = Dimensions.get('screen').width;
-
 export default class App extends Component {
-    render() {
-        const fotos = [
-            {id: 1, usuario: 'rafael'},
-            {id: 2, usuario: 'alberto'},
-            {id: 3, usuario: 'vitor'}
-        ];
+    constructor() {
+        super();
+        this.state = {
+            fotos: []
+        }
+    }
 
+    componentDidMount() {
+        fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+            .then(resposta => resposta.json())
+            .then(json => this.setState({fotos: json}));
+    }
+
+    render() {
         return (
             <FlatList style={styles.container}
-                keyExtractor={item => item.id}
-                data={fotos}
+                keyExtractor={item => String(item.id)}
+                data={this.state.fotos}
                 renderItem={ ({item}) =>
                     <Post foto={item}/>
                 }
