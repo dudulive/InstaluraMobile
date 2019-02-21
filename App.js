@@ -8,7 +8,9 @@
  */
 
 import React, {Component} from 'react';
-import { Text, View, FlatList, Dimensions, Image, StyleSheet} from 'react-native';
+import { FlatList, Dimensions, StyleSheet} from 'react-native';
+
+import Post from './src/components/Post'; 
 
 const width = Dimensions.get('screen').width;
 
@@ -25,15 +27,7 @@ export default class App extends Component {
                 keyExtractor={item => item.id}
                 data={fotos}
                 renderItem={ ({item}) =>
-                    <View>
-                        <View style={styles.cabecalho}>
-                            <Image source={require('./resources/img/alura.jpg')}
-                                    style={styles.fotoDePerfil} />
-                            <Text>{item.usuario}</Text>
-                        </View>
-                        <Image source={require('./resources/img/alura.jpg')}
-                                style={styles.foto} />        
-                    </View>
+                    <Post foto={item}/>
                 }
             />
         );
@@ -43,20 +37,5 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     container: {
         marginTop: 20,
-    },
-    cabecalho: {
-        margin: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    fotoDePerfil: {
-        marginRight: 10,
-        borderRadius: 20,
-        width: 40,
-        height: 40,
-    },
-    foto: {
-        width: width,
-        height: width,
     },
 });
