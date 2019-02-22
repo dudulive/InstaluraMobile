@@ -26,6 +26,29 @@ export default class Post extends Component {
             require('../../resources/img/s2.png')
     }
 
+    exibeLikes(likers) {
+        if(likers.length <= 0)
+            return;
+
+        return (
+            <Text style={styles.likes}>
+                {likers.length} {likers.length > 1 ? 'curtidas' : 'curtida'}
+            </Text>
+        );
+    }
+
+    exibeLegenda(foto) {
+        if(foto.comentario === '')
+            return;
+
+        return (
+            <View style={styles.comentario}>
+                <Text style={styles.tituloComentario}>{foto.loginUsuario}</Text>
+                <Text>{foto.comentario}</Text>
+            </View>
+        );
+    }
+
     render() {
         const { foto } = this.state;
 
@@ -45,6 +68,8 @@ export default class Post extends Component {
                             source={this.carregaIcone(foto.likeada)}/>         
                     </TouchableOpacity>
                 </View>
+                {this.exibeLikes(foto.likers)}
+                {this.exibeLegenda(foto)}
             </View>
         );
     }
@@ -72,5 +97,17 @@ const styles = StyleSheet.create({
     botaoDeLike: {
         height: 40,
         width: 40,
+    },
+    likes: {
+        fontWeight: 'bold',
+        marginLeft: 5,
+    },
+    comentario: {
+        flexDirection: 'row',
+        marginLeft: 5,
+    },
+    tituloComentario: {
+        fontWeight: 'bold',
+        marginRight: 5,
     },
 });
