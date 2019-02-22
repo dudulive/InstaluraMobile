@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import { Text, View, Dimensions, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text, View, Dimensions, Image, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 
 const width = Dimensions.get('screen').width;
 
@@ -91,6 +91,13 @@ export default class Post extends Component {
                             <Text>{comentario.texto}</Text>
                         </View>
                 )}
+                 <View style={styles.novoComentario}>
+                        <TextInput style={styles.input}
+                            placeholder="Adicione um comentário..."/>
+
+                        <Image style={styles.icone}
+                            source={require('../../resources/img/send.png')} />
+                </View>
             </View>
         );
     }
@@ -131,4 +138,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginRight: 5,
     },
+    novoComentario: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    input: {
+        flex: 1,
+        height: 40,
+    },
+    icone: {
+        height: 30,
+        width: 30,
+    },  
 });
