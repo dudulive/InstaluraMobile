@@ -64,6 +64,25 @@ export default class Post extends Component {
         );
     }
 
+    adicionaComentario() {
+        if(this.state.valorComentario === '')
+            return;
+
+        const novaLista = [...this.state.foto.comentarios, {
+            id: this.state.valorComentario,
+            login: 'meuUsuario',
+            texto: this.state.valorComentario,
+        }];
+
+        const fotoAtualizada = {
+            ...this.state.foto,
+            comentarios: novaLista,
+        }
+
+        this.setState({foto: fotoAtualizada, valorComentario: ''});
+        this.inputComentario.clear();
+    }
+
     render() {
         const { foto } = this.state;
 
@@ -93,10 +112,14 @@ export default class Post extends Component {
                 )}
                  <View style={styles.novoComentario}>
                         <TextInput style={styles.input}
-                            placeholder="Adicione um comentário..."/>
+                            placeholder="Adicione um comentário..."
+                            ref={input => this.inputComentario = input}
+                            onChangeText={texto => this.setState({valorComentario: texto})}/>
 
-                        <Image style={styles.icone}
-                            source={require('../../resources/img/send.png')} />
+                        <TouchableOpacity onPress={this.adicionaComentario.bind(this)}>
+                            <Image style={styles.icone}
+                                source={require('../../resources/img/send.png')} />
+                        </TouchableOpacity>
                 </View>
             </View>
         );
