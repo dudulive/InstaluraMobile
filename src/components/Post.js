@@ -4,6 +4,7 @@ import { Text, View, Dimensions, Image, StyleSheet,} from 'react-native';
 
 import InputComentario from './InputComentario';
 import Likes from './Likes';
+import Comentario from './Comentario';
 
 const width = Dimensions.get('screen').width;
 
@@ -88,10 +89,8 @@ export default class Post extends Component {
                     {this.exibeLegenda(foto)}
 
                     {foto.comentarios.map(comentario => 
-                        <View style={styles.comentario} key={comentario.id}>
-                            <Text style={styles.tituloComentario}>{comentario.login}</Text>
-                            <Text>{comentario.texto}</Text>
-                        </View>
+                        <Comentario key={comentario.id} 
+                            usuario={comentario.login} texto={comentario.texto}/>
                     )}
 
                     <InputComentario comentarioCallback={this.adicionaComentario.bind(this)} />
