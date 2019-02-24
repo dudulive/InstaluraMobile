@@ -5,7 +5,8 @@ import {
   View,
   Dimensions,
   TextInput,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
@@ -17,7 +18,8 @@ export default class Login extends Component {
         this.state = {
             usuario: '',
             senha: '',
-        };
+            mensagem: ''
+        } 
     }  
 
     efetuaLogin() {
@@ -41,7 +43,11 @@ export default class Login extends Component {
 
                 throw new Error('Não foi possível efetuar login');
             })
-            .then(token => console.warn(token));
+            .then(token => {
+                AsyncStorage.setItem('token', token);
+                AsyncStorage.setItem('usuario', this.state.usuario);
+            })
+            .catch(error => this.setState({mensagem: error.message}));
     }
 
     render() {
@@ -61,27 +67,35 @@ export default class Login extends Component {
 
                     <Button title="Login" onPress={this.efetuaLogin.bind(this)}/>
                 </View>
+
+                <Text style={styles.mensagem}>
+                    {this.state.mensagem}
+                </Text>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  titulo: {
-    fontWeight: 'bold',
-    fontSize: 26,
-  },
-  form: {
-    width: width * 0.8
-  },
-  input: {
-    height: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd'
-  }
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    titulo: {
+        fontWeight: 'bold',
+        fontSize: 26,
+    },
+    form: {
+        width: width * 0.8
+    },
+    input: {
+        height: 40,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd'
+    },
+    mensagem: {
+        marginTop: 15,
+        color: '#e74c3c'
+    }
 })
