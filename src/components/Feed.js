@@ -1,18 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, {Component} from 'react';
 import { FlatList, StyleSheet, Platform} from 'react-native';
 
-import Post from './src/components/Post'; 
+import Post from './Post'; 
 
-export default class App extends Component {
+export default class Feed extends Component {
     constructor() {
         super();
         this.state = {
