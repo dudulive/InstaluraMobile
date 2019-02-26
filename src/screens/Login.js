@@ -9,6 +9,8 @@ import {
   AsyncStorage
 } from 'react-native';
 
+import { Navigation } from 'react-native-navigation';
+
 const width = Dimensions.get('screen').width;
 
 export default class Login extends Component {
@@ -47,10 +49,28 @@ export default class Login extends Component {
                 AsyncStorage.setItem('token', token);
                 AsyncStorage.setItem('usuario', this.state.usuario);
                 //navegue para o feed, redifinindo estado inicial
-                this.props.navigator.push({
-                    component: 'Feed',
-                    title: 'Instalura',
-                })
+                Navigation.setRoot({
+                    root: {
+                      stack: {
+                        //id: 'App',
+                       
+                        children: [
+                          {
+                            component: {
+                              name: 'navigation.playground.Feed', 
+                              options: {
+                                topBar: {
+                                  title: {
+                                    text:  'INSTALURA'
+                                  }
+                              }
+                            },
+                            }
+                          }
+                        ],
+                      }
+                    }
+                  })
             })
             .catch(error => this.setState({mensagem: error.message}));
     }

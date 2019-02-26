@@ -44,7 +44,7 @@ export default class Post extends Component {
                           usuario={comentario.login} texto={comentario.texto}/>
                     )}
 
-                    <InputComentario comentarioCallback={comentarioCallback} />
+                    <InputComentario idFoto={foto.id} comentarioCallback={comentarioCallback} />
                 </View>
             </View>
         );

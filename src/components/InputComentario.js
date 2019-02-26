@@ -38,7 +38,7 @@ export default class InputComentario extends Component {
 }
 
 const styles =  StyleSheet.create({
-    novoComentario: {
+   container: {
         flexDirection: 'row',
         alignItems: 'center',
         borderBottomWidth: 1,

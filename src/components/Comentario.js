@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 
 export default class Comentario extends Component {
 
@@ -13,3 +13,13 @@ export default class Comentario extends Component {
       );
     }
   }
+
+  const styles = StyleSheet.create({
+    comentario: {
+        flexDirection: 'row',
+    },
+    tituloComentario: {
+        fontWeight: 'bold',
+        marginRight: 5,
+    },
+});
