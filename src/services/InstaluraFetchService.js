@@ -19,12 +19,7 @@ import {
           }
         })
         .then(requestInfo => fetch(uri, requestInfo))
-        .then(resposta => {
-            if(resposta.ok)
-              return resposta.json();
-      
-            throw new Error('Não foi possível completar a operação');
-        });
+        .then(resposta => resposta.json());
     }
   
     static post(recurso, dados) {
@@ -43,10 +38,10 @@ import {
         })
         .then(requestInfo => fetch(uri, requestInfo))
         .then(resposta => {
-            if(resposta.ok)
-              return resposta.json();
-      
-            throw new Error('Não foi possível completar a operação');
-          });
+          if(resposta.ok)
+            return resposta.json();
+  
+          throw new Error('Não foi possível completar a operação');
+        });
     }
   }
