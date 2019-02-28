@@ -1,6 +1,13 @@
 
 import React, {Component} from 'react';
-import { Text, View, Dimensions, Image, StyleSheet,} from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    Dimensions,
+    TouchableOpacity,
+  } from 'react-native';
 
 import InputComentario from './InputComentario';
 import Likes from './Likes';
@@ -23,32 +30,34 @@ export default class Post extends Component {
     }
 
     render() {
-        const { foto, likeCallback, comentarioCallback } = this.props;
-
-        return(
-            <View>
-                <View style={styles.cabecalho}>
-                    <Image source={{uri: foto.urlPerfil}}
-                            style={styles.fotoDePerfil} />
-                    <Text>{foto.loginUsuario}</Text>
-                </View>
-                <Image source={{uri: foto.urlFoto}}
-                    style={styles.foto} />   
-
-                <View style={styles.rodape}>
-                    <Likes foto={foto} likeCallback={likeCallback}/>
-                    {this.exibeLegenda(foto)}
-
-                    {foto.comentarios.map(comentario => 
-                        <Comentario key={comentario.id} 
-                          usuario={comentario.login} texto={comentario.texto}/>
-                    )}
-
-                    <InputComentario idFoto={foto.id} comentarioCallback={comentarioCallback} />
-                </View>
+        const { foto, likeCallback, comentarioCallback, verPerfilCallback } = this.props;
+    
+        return (
+          <View>
+            <TouchableOpacity style={styles.cabecalho}
+                onPress={() => verPerfilCallback(foto.id)}>
+              <Image source={{uri: foto.urlPerfil}}
+                  style={styles.fotoDePerfil}/>
+              <Text>{foto.loginUsuario}</Text>
+            </TouchableOpacity>
+            <Image source={{uri: foto.urlFoto}}
+                style={styles.foto}/>
+    
+            <View style={styles.rodape}>
+              <Likes foto={foto} likeCallback={likeCallback}/>
+              {this.exibeLegenda(foto)}
+    
+              {foto.comentarios.map(comentario =>
+                <Comentario key={comentario.id}
+                    usuario={comentario.login} texto={comentario.texto}/>
+              )}
+    
+              <InputComentario idFoto={foto.id}
+                comentarioCallback={comentarioCallback} />
             </View>
+          </View>
         );
-    }
+      }
 }
 
 const styles = StyleSheet.create({
